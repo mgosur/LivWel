@@ -1,0 +1,22 @@
+{
+  "name": "livwel_mvp",
+  "version": "1.0.0",
+  "description": "Minimum Viable Product (MVP)",
+  "main": "app.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mgosur/LivWel.git"
+  },
+  "author": "Michael Vander Lugt",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mgosur/LivWel/issues"
+  },
+  "homepage": "https://github.com/mgosur/LivWel#readme"
+}
