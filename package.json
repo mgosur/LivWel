@@ -7,6 +7,7 @@
     "test": "tests"
   },
   "scripts": {
+    "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -16,7 +17,9 @@
   "author": "Michael Vander Lugt",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.13.3"
+    "express": "^4.13.3",
+    "mongoose": "^4.2.2",
+    "passport": "^0.3.0"
   },
   "bugs": {
     "url": "https://github.com/mgosur/LivWel/issues"
