@@ -3,4 +3,5 @@ A community engagement platform to help you connect with health and wellness res
 
 To Run:
 
-1) NPM Install
+1) npm install
+2) npm start
