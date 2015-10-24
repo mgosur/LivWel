@@ -15,6 +15,9 @@
   },
   "author": "Michael Vander Lugt",
   "license": "ISC",
+  "dependencies": {
+    "express": "^4.13.3"
+  },
   "bugs": {
     "url": "https://github.com/mgosur/LivWel/issues"
   },
