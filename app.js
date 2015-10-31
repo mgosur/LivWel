@@ -8,6 +8,7 @@ var mongoose = require('mongoose');
 
 
 var app = express();
+mongoose.connect('mongodb://localhost/LivWel')
 
 app.use(express.static(__dirname + '/public'));
 app.use(require('./controllers'));
