@@ -17,6 +17,7 @@
   "author": "Michael Vander Lugt",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.14.1",
     "express": "^4.13.3",
     "mongoose": "^4.2.2",
     "passport": "^0.3.0"
