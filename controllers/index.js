@@ -10,7 +10,7 @@ router.use('/cards', require('./cards'));
 router.use('/users', require('./users'));
 
 router.get('/', function(req, res) {
-	res.send('Server Manual Respond');
+	res.sendFile('/index.html');
 });
 
 module.exports = router;
