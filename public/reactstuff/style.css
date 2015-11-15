@@ -1,4 +1,15 @@
-.example{
-	width: 10%;
-	height: 10%;
+#example{
+	position: absolute;
+    left:178px; top:92px; right:0; bottom:0;
+}
+
+#sidebar{
+	position:absolute;
+    left:0; top:92px; bottom: 0;
+    width: 178px;
+}
+
+#Filter{
+
+	margin-left: 18px;
 }
