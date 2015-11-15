@@ -1,6 +1,10 @@
 var React = require("react");
 var ReactDOM = require("react-dom");
 var Modal = require("react-modal");
+var ReactBootstrap = require("react-bootstrap");
+var Grid = ReactBootstrap.Grid;
+var Row = ReactBootstrap.Row;
+var Col = ReactBootstrap.Col;
 
 const customStyles = {
   content : {
@@ -12,6 +16,11 @@ const customStyles = {
     transform             : 'translate(-50%, -50%)'
   }
 };
+
+
+
+
+
 
 var ModalWithImg = React.createClass({
 
@@ -53,7 +62,19 @@ var ModalWithImg = React.createClass({
     return (
 
       <div>
-        <img src={this.props.src} onClick={this.openModal}></img>
+
+
+        
+        
+        <Col xs={6} md={4}>
+        <br/>
+     
+        
+
+        <img src={this.props.src} onClick={this.openModal} />
+        
+        </Col>
+        
         
         <Modal
           isOpen={this.state.modalIsOpen}
@@ -80,7 +101,7 @@ var ModalWithImg = React.createClass({
 var MainContainer = React.createClass({
 	
 	render: function(){
-    var srcs = ["./src/imgs/1.jpg", "./src/imgs/2.jpg", "./src/imgs/3.jpg"];
+    var srcs = ["./src/imgs/example.png", "./src/imgs/example.png", "./src/imgs/example.png", "./src/imgs/example.png", "./src/imgs/example.png", "./src/imgs/example.png"];
     var modals = srcs.map(function (src,i) {
       return <ModalWithImg src={src} key={i} index = {i}/>
     });

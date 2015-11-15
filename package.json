@@ -26,6 +26,7 @@
     "morgan": "^1.6.1",
     "passport": "^0.3.0",
     "react": "^0.14.2",
+    "react-bootstrap": "^0.27.3",
     "react-dom": "^0.14.2",
     "react-modal": "^0.6.1",
     "watchify": "^3.6.0"
