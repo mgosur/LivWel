@@ -1,10 +1,14 @@
-#image {
-	width: 40%;
-	height: 40%;
+#cards{
+	position: absolute;
+    left:178px; top:92px; right:0; bottom:0;
 }
-#thumbnail {
-	width: 20%;
+
+#sidebar{
+	position:absolute;
+    left:0; top:92px; bottom: 0;
+    width: 178px;
 }
-img{
-	width: 70%;
+
+#Filter{
+	margin-left: 18px;
 }

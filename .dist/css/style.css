@@ -1,4 +1,4 @@
-#example{
+#cards{
 	position: absolute;
     left:178px; top:92px; right:0; bottom:0;
 }
@@ -10,6 +10,5 @@
 }
 
 #Filter{
-
 	margin-left: 18px;
 }

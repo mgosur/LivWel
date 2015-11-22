@@ -1,38 +1,25 @@
 {
-  "name": "livwel_mvp",
+  "name": "livwel",
   "version": "1.0.0",
-  "description": "Minimum Viable Product (MVP)",
-  "main": "app.js",
-  "directories": {
-    "test": "tests"
-  },
+  "description": "LivWel Full Stack",
+  "main": "index.js",
   "scripts": {
-    "start": "node app.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "watchify -t 6to5ify ./public/reactstuff/src/app.jsx -o ./public/reactstuff/dist/bundle.js -v"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/mgosur/LivWel.git"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Michael Vander Lugt",
   "license": "ISC",
   "dependencies": {
-    "6to5ify": "^4.1.1",
-    "body-parser": "^1.14.1",
+    "browser-sync": "^2.10.0",
     "browserify": "^12.0.1",
+    "ejs": "^2.3.4",
     "express": "^4.13.3",
-    "mongoose": "^4.2.2",
-    "morgan": "^1.6.1",
-    "passport": "^0.3.0",
-    "react": "^0.14.2",
-    "react-bootstrap": "^0.27.3",
-    "react-dom": "^0.14.2",
+    "gulp": "^3.9.0",
+    "gulp-live-server": "0.0.29",
+    "react": "^0.14.3",
+    "react-bootstrap": "^0.28.1",
+    "react-dom": "^0.14.3",
     "react-modal": "^0.6.1",
-    "watchify": "^3.6.0"
-  },
-  "bugs": {
-    "url": "https://github.com/mgosur/LivWel/issues"
-  },
-  "homepage": "https://github.com/mgosur/LivWel#readme"
+    "reactify": "^1.1.1",
+    "vinyl-source-stream": "^1.1.0"
+  }
 }
