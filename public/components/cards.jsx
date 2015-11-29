@@ -5,6 +5,8 @@ var ReactBootstrap = require("react-bootstrap");
 var Grid = ReactBootstrap.Grid;
 var Row = ReactBootstrap.Row;
 var Col = ReactBootstrap.Col;
+var Thumbnail = ReactBootstrap.Thumbnail;
+var Button = ReactBootstrap.Button;
 
 const customStyles = {
   content : {
@@ -13,7 +15,9 @@ const customStyles = {
     right                 : 'auto',
     bottom                : 'auto',
     marginRight           : '-50%',
-    transform             : 'translate(-50%, -50%)'
+    transform             : 'translate(-50%, -50%)',
+    height                : '95%',
+    width                 : '95%'
   }
 };
 
@@ -47,7 +51,7 @@ var ModalWithImg = React.createClass({
       return <p>{tag}</p>
     })
     return (
-      <div>
+       <div>
         <Col xs={6} md={4}>
         <br/>
         <img src={this.props.src} onClick={this.openModal} />      
@@ -57,15 +61,15 @@ var ModalWithImg = React.createClass({
           onRequestClose={this.closeModal}
           style={customStyles} >
           <h2>
-          	Card {this.props.index +1}
+            Card {this.props.index +1}
           </h2>
           <img src = {this.props.src} /> <br></br>
           <button onClick={this.closeModal}>close</button>
           <div>I am a modal</div>
           <div>
-	          Add Tags:
-	          <input type = "text" name = "tag" onKeyDown = {this.keyDown}/>
-	          {tags}
+            Add Tags:
+            <input type = "text" name = "tag" onKeyDown = {this.keyDown}/>
+            {tags}
           </div>
         </Modal>
       </div>

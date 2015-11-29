@@ -10,7 +10,6 @@ router.get('/', function(req, res) {
 		res.json(cardsReturned);
 	});
 });
-
 router.post('/', function(req, res) {
 	Cards.create({
 		company : req.body.company,
@@ -34,7 +33,4 @@ router.post('/', function(req, res) {
 		});
 	});
 });
-
-
-
 module.exports = router;

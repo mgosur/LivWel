@@ -11,7 +11,7 @@ var cardSchema = new Schema({
 	populations_served: String,
 	specialities: String,
 	media: String, //holder for images
-	tags: String
+	tags: [String]
 });
 
 module.exports = mongoose.model('Card', cardSchema);
