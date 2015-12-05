@@ -2,11 +2,11 @@ var React = require("react");
 var ReactDOM = require("react-dom");
 var Modal = require("react-modal");
 var ReactBootstrap = require("react-bootstrap");
-var Grid = ReactBootstrap.Grid;
-var Row = ReactBootstrap.Row;
-var Col = ReactBootstrap.Col;
-var Thumbnail = ReactBootstrap.Thumbnail;
-var Button = ReactBootstrap.Button;
+// var Grid = ReactBootstrap.Grid;
+// var Row = ReactBootstrap.Row;
+// var Col = ReactBootstrap.Col;
+// var Thumbnail = ReactBootstrap.Thumbnail;
+// var Button = ReactBootstrap.Button;
 
 const customStyles = {
   content : {
@@ -21,73 +21,70 @@ const customStyles = {
   }
 };
 
-var ModalWithImg = React.createClass({
+var SearchBarContainer = React.createClass({
+    render: function() {
+        return (
+            <form>
+                <input type="text" placeholder="Search..." />
+            </form>
+        );
+    }
+});
+var MainContainer = React.createClass({
   getInitialState: function() {
-    return { 
-      modalIsOpen: false,
-      tags: []
+    return {
+      filterText: ''
     };
   },
-  openModal: function() {
-    this.setState({modalIsOpen: true});
+  handleSearchInput: function(filterText) {
+    this.setState({
+      filterText: filterText
+    });
   },
-  closeModal: function() {
-    this.setState({modalIsOpen: false});
-  },
-  addTags: function (tag) {
-    
-      this.setState({tags: this.state.tags.concat(tag)})
-  },
-  keyDown: function (event){
-    if (event.key == "Enter")
-    {
-      this.addTags(event.target.value) 
-      event.target.value = null;
-
+  render: function(){
+      return (
+        <div>
+           <SearchBarContainer />
+          <CardContainer cards = {this.props.cards} />
+        </div>
+      );
     }
-  },
+});
+var Card = React.createClass ({
   render: function() {
-    var tags = this.state.tags.map(function(tag, i){
-      return <p>{tag}</p>
-    })
     return (
-       <div>
-        <Col xs={6} md={4}>
-        <br/>
-        <img src={this.props.src} onClick={this.openModal} />      
-        </Col>
-        <Modal
-          isOpen={this.state.modalIsOpen}
-          onRequestClose={this.closeModal}
-          style={customStyles} >
-          <h2>
-            Card {this.props.index +1}
-          </h2>
-          <img src = {this.props.src} /> <br></br>
-          <button onClick={this.closeModal}>close</button>
-          <div>I am a modal</div>
-          <div>
-            Add Tags:
-            <input type = "text" name = "tag" onKeyDown = {this.keyDown}/>
-            {tags}
-          </div>
-        </Modal>
-      </div>
+      <tr>
+        <td>{this.props.card.name}</td>
+      </tr>
     );
   }
 });
-var MainContainer = React.createClass({
-	render: function(){
-    var srcs = ["./imgs/example.png", "./imgs/example.png", "./imgs/example.png", "./imgs/example.png", "./imgs/example.png", "./imgs/example.png"];
-    var modals = srcs.map(function (src,i) {
-      return <ModalWithImg src={src} key={i} index = {i}/>
-    });
-		return (
-			<div>
-			   {modals}
-			</div>
-		)
-	}
+var CardContainer = React.createClass({
+  render: function() {
+      var rows = [];
+      this.props.cards.forEach(function(card) {
+        rows.push(<Card card={card} key={card.name} />);
+      });
+      return (  
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+            </tr>
+          </thead>
+          <tbody>{rows}</tbody>
+        </table>
+      )
+  }
 });
 
-module.exports = MainContainer;
+// module.exports = MainContainer;
+var CARDS = [
+    { name: 'Backbone.js', img: './imgs/example.png'},
+    { name: 'AngularJS', img: './imgs/example.png'},
+    { name: 'jQuery', url: './imgs/example.png'},
+    { name: 'Prototype', url: './imgs/example.png'},
+    { name: 'React', url: './imgs/example.png'}
+];
+
+ReactDOM.render(<MainContainer cards={CARDS}/>, cards);
