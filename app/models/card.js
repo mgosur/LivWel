@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var cardSchema = new Schema({
-	company: String,
+	name: String,
 	phone_number: String,
 	address: String,
 	about: String,
