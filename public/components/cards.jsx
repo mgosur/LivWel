@@ -2,6 +2,9 @@ var React = require("react");
 var ReactDOM = require("react-dom");
 var Modal = require("react-modal");
 var ReactBootstrap = require("react-bootstrap");
+var Grid = ReactBootstrap.Grid;
+var Col = ReactBootstrap.Col;
+var Thumbnail = ReactBootstrap.Thumbnail;
 
 const customStyles = {
   content : {
@@ -30,22 +33,28 @@ var Card = React.createClass ({
   },
   render: function() {
     return (
-        <td>
-          <img src={this.props.card.img} onClick={this.openModal}/>
+       <div>
+       <Col xs={6} md={3} >
+        <br></br>
+
+        <Thumbnail src={this.props.card.img} alt="242x200" onClick = {this.openModal}>
+          <h3>{this.props.card.name}</h3>
+          <p>Description</p>
+        </Thumbnail>
+         
           <Modal
             isOpen={this.state.modalIsOpen}
             onRequestClose={this.closeModal}
             style={customStyles} >
-            
             <h2>
               {this.props.card.name}
             </h2>
-            
             <img src = {this.props.card.img} /> <br></br>
             <button onClick={this.closeModal}>close</button>
             <div>I am a modal</div>
           </Modal>
-        </td>
+        </Col>
+      </div>
     );
   }
 });
@@ -59,14 +68,12 @@ var CardContainer = React.createClass({
         rows.push(<Card card={card} key={card.name} />);
       }.bind(this));
       return (  
-        <table>
-          <thead>
-            <tr>
-              <th>Name</th>
-            </tr>
-          </thead>
-          <tbody><tr>{rows}</tr></tbody>
-        </table>
+       <div>
+        <Grid>
+          {rows}
+        </Grid>
+        </div>
+       
       )
   }
 });
