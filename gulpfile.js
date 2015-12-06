@@ -11,7 +11,7 @@ gulp.task('live-server', function() {
 })
 gulp.task('bundle', function() {
 	return browserify({
-		entries: 'public/components/cards.jsx',
+		entries: 'public/main.jsx',
 		debug: true,
 	})
 	.transform(reactify)

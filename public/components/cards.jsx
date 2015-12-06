@@ -2,11 +2,6 @@ var React = require("react");
 var ReactDOM = require("react-dom");
 var Modal = require("react-modal");
 var ReactBootstrap = require("react-bootstrap");
-// var Grid = ReactBootstrap.Grid;
-// var Row = ReactBootstrap.Row;
-// var Col = ReactBootstrap.Col;
-// var Thumbnail = ReactBootstrap.Thumbnail;
-// var Button = ReactBootstrap.Button;
 
 const customStyles = {
   content : {
@@ -21,11 +16,50 @@ const customStyles = {
   }
 };
 
+var Card = React.createClass ({
+  render: function() {
+    return (
+      <tr>
+        <td>{this.props.card.name}</td>
+      </tr>
+    );
+  }
+});
+var CardContainer = React.createClass({
+  render: function() {
+      var rows = [];
+      this.props.cards.forEach(function(card) {
+        if(card.name.indexOf(this.props.filterText) === -1) {
+          return;
+        }
+        rows.push(<Card card={card} key={card.name} />);
+      }.bind(this));
+      return (  
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+            </tr>
+          </thead>
+          <tbody>{rows}</tbody>
+        </table>
+      )
+  }
+});
 var SearchBarContainer = React.createClass({
-    render: function() {
+    handleChange : function() {
+      this.props.onSearchInput(this.refs.filterTextInput.value);
+    },
+    render : function() {
         return (
             <form>
-                <input type="text" placeholder="Search..." />
+                <input 
+                  type="text" 
+                  placeholder="Search.." 
+                  value={this.props.filterText} 
+                  ref="filterTextInput"
+                  onChange={this.handleChange}
+                />
             </form>
         );
     }
@@ -44,47 +78,11 @@ var MainContainer = React.createClass({
   render: function(){
       return (
         <div>
-           <SearchBarContainer />
-          <CardContainer cards = {this.props.cards} />
+           <SearchBarContainer filterText = {this.state.filterText} onSearchInput = {this.handleSearchInput}/>
+          <CardContainer cards = {this.props.cards} filterText = {this.state.filterText} />
         </div>
       );
     }
 });
-var Card = React.createClass ({
-  render: function() {
-    return (
-      <tr>
-        <td>{this.props.card.name}</td>
-      </tr>
-    );
-  }
-});
-var CardContainer = React.createClass({
-  render: function() {
-      var rows = [];
-      this.props.cards.forEach(function(card) {
-        rows.push(<Card card={card} key={card.name} />);
-      });
-      return (  
-        <table>
-          <thead>
-            <tr>
-              <th>Name</th>
-            </tr>
-          </thead>
-          <tbody>{rows}</tbody>
-        </table>
-      )
-  }
-});
 
-// module.exports = MainContainer;
-var CARDS = [
-    { name: 'Backbone.js', img: './imgs/example.png'},
-    { name: 'AngularJS', img: './imgs/example.png'},
-    { name: 'jQuery', url: './imgs/example.png'},
-    { name: 'Prototype', url: './imgs/example.png'},
-    { name: 'React', url: './imgs/example.png'}
-];
-
-ReactDOM.render(<MainContainer cards={CARDS}/>, cards);
+module.exports = MainContainer;
