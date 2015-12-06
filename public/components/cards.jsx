@@ -3,10 +3,8 @@ var ReactDOM = require("react-dom");
 var Modal = require("react-modal");
 var ReactBootstrap = require("react-bootstrap");
 var Grid = ReactBootstrap.Grid;
-var Row = ReactBootstrap.Row;
 var Col = ReactBootstrap.Col;
 var Thumbnail = ReactBootstrap.Thumbnail;
-var Button = ReactBootstrap.Button;
 
 const customStyles = {
   content : {
@@ -21,11 +19,25 @@ const customStyles = {
   }
 };
 
-var ModalWithImg = React.createClass({
+const style = {
+
+  sidebar: {
+    position : 'absolute', 
+    float: 'left',
+    width: '20%'
+  },
+
+  cards: {
+    position: 'absolute',
+    float: 'right',
+    marginLeft: '20%'
+  }
+};
+
+var Card = React.createClass ({
   getInitialState: function() {
     return { 
-      modalIsOpen: false,
-      tags: []
+      modalIsOpen: false
     };
   },
   openModal: function() {
@@ -34,60 +46,126 @@ var ModalWithImg = React.createClass({
   closeModal: function() {
     this.setState({modalIsOpen: false});
   },
-  addTags: function (tag) {
-    
-      this.setState({tags: this.state.tags.concat(tag)})
+  addTags: function(tag) {
+    console.log("addTags called!");
+    this.props.onTagInput(tag, this.props.index);
   },
   keyDown: function (event){
     if (event.key == "Enter")
     {
       this.addTags(event.target.value) 
       event.target.value = null;
-
     }
   },
   render: function() {
-    var tags = this.state.tags.map(function(tag, i){
-      return <p>{tag}</p>
-    })
     return (
        <div>
-        <Col xs={6} md={4}>
-        <br/>
-        <img src={this.props.src} onClick={this.openModal} />      
+       <Col xs={6} md={3} >
+        <br></br>
+          <Thumbnail src={this.props.card.img} alt="242x200" onClick = {this.openModal}>
+            <h3>{this.props.card.name}</h3>
+            <p>Description</p>
+          </Thumbnail>
+         
+          <Modal
+            isOpen={this.state.modalIsOpen}
+            onRequestClose={this.closeModal}
+            style={customStyles} >
+            <h2>
+              {this.props.card.name}
+            </h2>
+            <center><img src = {this.props.card.img} /></center> <br></br> <br></br>
+            <div><b>Service Type: </b>{this.props.card.service_type}</div><br></br> 
+            <div><b>Services Offered: </b></div>
+            <div>{this.props.card.services_offered}</div><br></br>
+            
+            <div>
+              Add Tags:
+              <input type = "text" name = "tag" onKeyDown = {this.keyDown} />
+              {this.props.card.tags}
+            </div>
+
+            <button onClick={this.closeModal}>close</button>
+
+          </Modal>
         </Col>
-        <Modal
-          isOpen={this.state.modalIsOpen}
-          onRequestClose={this.closeModal}
-          style={customStyles} >
-          <h2>
-            Card {this.props.index +1}
-          </h2>
-          <img src = {this.props.src} /> <br></br>
-          <button onClick={this.closeModal}>close</button>
-          <div>I am a modal</div>
-          <div>
-            Add Tags:
-            <input type = "text" name = "tag" onKeyDown = {this.keyDown}/>
-            {tags}
-          </div>
-        </Modal>
       </div>
     );
   }
 });
+var CardContainer = React.createClass({
+  render: function() {
+      var rows = [];
+      var index_tracker = 0;
+      this.props.cards.forEach(function(card) {
+        if(card.name.toLowerCase().indexOf(this.props.filterText.toLowerCase()) === -1) {
+          return;
+        }
+        rows.push(<Card card={card} index={index_tracker} key={card.name} onTagInput={this.props.tagInput} />);
+        console.log(index_tracker);
+        index_tracker++;
+      }.bind(this));
+      return (  
+       <div>
+
+          {rows}
+
+        </div>
+       
+      )
+  }
+});
+var SearchBarContainer = React.createClass({
+    handleChange : function() {
+      this.props.onSearchInput(this.refs.filterTextInput.value);
+    },
+    render : function() {
+        return (
+            <form>
+                <input 
+                  type="text" 
+                  placeholder="Search.." 
+                  value={this.props.filterText} 
+                  ref="filterTextInput"
+                  onChange={this.handleChange}
+                />
+            </form>
+        );
+    }
+});
 var MainContainer = React.createClass({
-	render: function(){
-    var srcs = ["./imgs/example.png", "./imgs/example.png", "./imgs/example.png", "./imgs/example.png", "./imgs/example.png", "./imgs/example.png"];
-    var modals = srcs.map(function (src,i) {
-      return <ModalWithImg src={src} key={i} index = {i}/>
+  getInitialState: function() {
+    return {
+      filterText: '',
+      state_card: this.props.cards
+    };
+  },
+  handleTagAdd: function(newTag, indexOf) {
+    console.log(newTag);
+    console.log(indexOf);
+    var holder = this.state.state_card;
+    holder[indexOf].tags.push(newTag);
+    this.setState({
+      state_card: holder
     });
-		return (
-			<div>
-			   {modals}
-			</div>
-		)
-	}
+  },
+  handleSearchInput: function(filterText) {
+    this.setState({
+      filterText: filterText
+    });
+  },
+  render: function(){
+      return (
+        <div>
+          <Col xs={12} md={2}>
+          <SearchBarContainer filterText = {this.state.filterText} onSearchInput = {this.handleSearchInput} />
+          </Col>
+          <Col xs={12} md={8}>
+          <CardContainer cards = {this.state.state_card} filterText = {this.state.filterText} tagInput = {this.handleTagAdd} />
+          </Col>
+        </div>
+      );
+    }
 });
 
 module.exports = MainContainer;
