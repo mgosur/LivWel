@@ -19,6 +19,21 @@ const customStyles = {
   }
 };
 
+const style = {
+
+  sidebar: {
+    position : 'absolute', 
+    float: 'left',
+    width: '20%'
+  },
+
+  cards: {
+    position: 'absolute',
+    float: 'right',
+    marginLeft: '20%'
+  }
+};
+
 var Card = React.createClass ({
   getInitialState: function() {
     return { 
@@ -36,11 +51,10 @@ var Card = React.createClass ({
        <div>
        <Col xs={6} md={3} >
         <br></br>
-
-        <Thumbnail src={this.props.card.img} alt="242x200" onClick = {this.openModal}>
-          <h3>{this.props.card.name}</h3>
-          <p>Description</p>
-        </Thumbnail>
+          <Thumbnail src={this.props.card.img} alt="242x200" onClick = {this.openModal}>
+            <h3>{this.props.card.name}</h3>
+            <p>Description</p>
+          </Thumbnail>
          
           <Modal
             isOpen={this.state.modalIsOpen}
@@ -49,9 +63,12 @@ var Card = React.createClass ({
             <h2>
               {this.props.card.name}
             </h2>
-            <img src = {this.props.card.img} /> <br></br>
+            <center><img src = {this.props.card.img} /></center> <br></br> <br></br>
+            <div><b>Service Type: </b>{this.props.card.service_type}</div><br></br> 
+            <div><b>Services Offered: </b></div>
+            <div>{this.props.card.services_offered}</div><br></br>
             <button onClick={this.closeModal}>close</button>
-            <div>I am a modal</div>
+
           </Modal>
         </Col>
       </div>
@@ -69,9 +86,9 @@ var CardContainer = React.createClass({
       }.bind(this));
       return (  
        <div>
-        <Grid>
+
           {rows}
-        </Grid>
+
         </div>
        
       )
@@ -109,8 +126,12 @@ var MainContainer = React.createClass({
   render: function(){
       return (
         <div>
-           <SearchBarContainer filterText = {this.state.filterText} onSearchInput = {this.handleSearchInput}/>
+          <Col xs={12} md={2}>
+          <SearchBarContainer filterText = {this.state.filterText} onSearchInput = {this.handleSearchInput} />
+          </Col>
+          <Col xs={12} md={8}>
           <CardContainer cards = {this.props.cards} filterText = {this.state.filterText} />
+          </Col>
         </div>
       );
     }
