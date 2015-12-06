@@ -38,7 +38,7 @@ var Card = React.createClass ({
             style={customStyles} >
             
             <h2>
-              Card {this.props.index +1}
+              {this.props.card.name}
             </h2>
             
             <img src = {this.props.card.img} /> <br></br>
@@ -53,7 +53,7 @@ var CardContainer = React.createClass({
   render: function() {
       var rows = [];
       this.props.cards.forEach(function(card) {
-        if(card.name.indexOf(this.props.filterText) === -1) {
+        if(card.name.toLowerCase().indexOf(this.props.filterText.toLowerCase()) === -1) {
           return;
         }
         rows.push(<Card card={card} key={card.name} />);
