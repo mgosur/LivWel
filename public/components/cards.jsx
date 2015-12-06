@@ -17,11 +17,35 @@ const customStyles = {
 };
 
 var Card = React.createClass ({
+  getInitialState: function() {
+    return { 
+      modalIsOpen: false
+    };
+  },
+  openModal: function() {
+    this.setState({modalIsOpen: true});
+  },
+  closeModal: function() {
+    this.setState({modalIsOpen: false});
+  },
   render: function() {
     return (
-      <tr>
-        <td>{this.props.card.name}</td>
-      </tr>
+        <td>
+          <img src={this.props.card.img} onClick={this.openModal}/>
+          <Modal
+            isOpen={this.state.modalIsOpen}
+            onRequestClose={this.closeModal}
+            style={customStyles} >
+            
+            <h2>
+              Card {this.props.index +1}
+            </h2>
+            
+            <img src = {this.props.card.img} /> <br></br>
+            <button onClick={this.closeModal}>close</button>
+            <div>I am a modal</div>
+          </Modal>
+        </td>
     );
   }
 });
@@ -41,7 +65,7 @@ var CardContainer = React.createClass({
               <th>Name</th>
             </tr>
           </thead>
-          <tbody>{rows}</tbody>
+          <tbody><tr>{rows}</tr></tbody>
         </table>
       )
   }
