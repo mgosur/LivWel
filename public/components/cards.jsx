@@ -19,6 +19,21 @@ const customStyles = {
   }
 };
 
+const style = {
+
+  sidebar: {
+    position : 'absolute', 
+    float: 'left',
+    width: '20%'
+  },
+
+  cards: {
+    position: 'absolute',
+    float: 'right',
+    marginLeft: '20%'
+  }
+};
+
 var Card = React.createClass ({
   getInitialState: function() {
     return { 
@@ -31,16 +46,26 @@ var Card = React.createClass ({
   closeModal: function() {
     this.setState({modalIsOpen: false});
   },
+  addTags: function(tag) {
+    console.log("addTags called!");
+    this.props.onTagInput(tag, this.props.index);
+  },
+  keyDown: function (event){
+    if (event.key == "Enter")
+    {
+      this.addTags(event.target.value) 
+      event.target.value = null;
+    }
+  },
   render: function() {
     return (
        <div>
        <Col xs={6} md={3} >
         <br></br>
-
-        <Thumbnail src={this.props.card.img} alt="242x200" onClick = {this.openModal}>
-          <h3>{this.props.card.name}</h3>
-          <p>Description</p>
-        </Thumbnail>
+          <Thumbnail src={this.props.card.img} alt="242x200" onClick = {this.openModal}>
+            <h3>{this.props.card.name}</h3>
+            <p>Description</p>
+          </Thumbnail>
          
           <Modal
             isOpen={this.state.modalIsOpen}
@@ -49,9 +74,19 @@ var Card = React.createClass ({
             <h2>
               {this.props.card.name}
             </h2>
-            <img src = {this.props.card.img} /> <br></br>
+            <center><img src = {this.props.card.img} /></center> <br></br> <br></br>
+            <div><b>Service Type: </b>{this.props.card.service_type}</div><br></br> 
+            <div><b>Services Offered: </b></div>
+            <div>{this.props.card.services_offered}</div><br></br>
+            
+            <div>
+              Add Tags:
+              <input type = "text" name = "tag" onKeyDown = {this.keyDown} />
+              {this.props.card.tags}
+            </div>
+
             <button onClick={this.closeModal}>close</button>
-            <div>I am a modal</div>
+
           </Modal>
         </Col>
       </div>
@@ -61,17 +96,20 @@ var Card = React.createClass ({
 var CardContainer = React.createClass({
   render: function() {
       var rows = [];
+      var index_tracker = 0;
       this.props.cards.forEach(function(card) {
         if(card.name.toLowerCase().indexOf(this.props.filterText.toLowerCase()) === -1) {
           return;
         }
-        rows.push(<Card card={card} key={card.name} />);
+        rows.push(<Card card={card} index={index_tracker} key={card.name} onTagInput={this.props.tagInput} />);
+        console.log(index_tracker);
+        index_tracker++;
       }.bind(this));
       return (  
        <div>
-        <Grid>
+
           {rows}
-        </Grid>
+
         </div>
        
       )
@@ -98,8 +136,18 @@ var SearchBarContainer = React.createClass({
 var MainContainer = React.createClass({
   getInitialState: function() {
     return {
-      filterText: ''
+      filterText: '',
+      state_card: this.props.cards
     };
+  },
+  handleTagAdd: function(newTag, indexOf) {
+    console.log(newTag);
+    console.log(indexOf);
+    var holder = this.state.state_card;
+    holder[indexOf].tags.push(newTag);
+    this.setState({
+      state_card: holder
+    });
   },
   handleSearchInput: function(filterText) {
     this.setState({
@@ -109,8 +157,12 @@ var MainContainer = React.createClass({
   render: function(){
       return (
         <div>
-           <SearchBarContainer filterText = {this.state.filterText} onSearchInput = {this.handleSearchInput}/>
-          <CardContainer cards = {this.props.cards} filterText = {this.state.filterText} />
+          <Col xs={12} md={2}>
+          <SearchBarContainer filterText = {this.state.filterText} onSearchInput = {this.handleSearchInput} />
+          </Col>
+          <Col xs={12} md={8}>
+          <CardContainer cards = {this.state.state_card} filterText = {this.state.filterText} tagInput = {this.handleTagAdd} />
+          </Col>
         </div>
       );
     }
