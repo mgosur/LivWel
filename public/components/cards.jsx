@@ -102,7 +102,7 @@ var CardContainer = React.createClass({
           return;
         }
         rows.push(<Card card={card} index={index_tracker} key={card.name} onTagInput={this.props.tagInput} />);
-        console.log(index_tracker);
+        //console.log(index_tracker);
         index_tracker++;
       }.bind(this));
       return (  
@@ -137,8 +137,17 @@ var MainContainer = React.createClass({
   getInitialState: function() {
     return {
       filterText: '',
-      state_card: this.props.cards
+      state_card: []
     };
+  },
+  componentDidMount: function() {
+    $.get(this.props.source, function(returnedCards) {
+      if(this.isMounted()) {
+        this.setState({
+          state_card: returnedCards
+        });
+      }
+    }.bind(this));
   },
   handleTagAdd: function(newTag, indexOf) {
     console.log(newTag);

@@ -30,4 +30,4 @@ console.log(CARDS[0].tags);
 var Cards = require('./components/cards.jsx');
 
 //ReactDOM.render(<Test />, test);
-ReactDOM.render(<Cards cards={CARDS}/>, cards);
+ReactDOM.render(<Cards source="http://localhost:9001/cards"/>, cards);

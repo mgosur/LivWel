@@ -12,7 +12,7 @@ router.get('/', function(req, res) {
 });
 router.post('/', function(req, res) {
 	Cards.create({
-		company : req.body.company,
+		name : req.body.name,
 		phone_number : req.body.phone_number,
 		address : req.body.address,
 		about : req.body.about,
@@ -30,6 +30,21 @@ router.post('/', function(req, res) {
 			if(error)
 				res.send(error)
 			res.json(cardsReturned)
+		});
+	});
+});
+router.delete('/:card_id', function(req, res) {
+	console.log('DELETE RECEIVED');
+	Cards.remove({
+		_id : req.params.card_id
+	}, function(error, cards) {
+		if(error)
+			res.send(error);
+
+		Cards.find(function(error, cards){
+			if(error)
+				res.send(error);
+			res.json(cards);
 		});
 	});
 });

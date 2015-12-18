@@ -1,10 +1,13 @@
 var express = require('express');
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
+ var mongoose = require('mongoose');
 
 var app = express();
 
- 
+//config
+mongoose.connect('mongodb://localhost/LivWelDataBase');
+
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/../.dist'));
 app.use(bodyParser.json()); //allows request parsing
