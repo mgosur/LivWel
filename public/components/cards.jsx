@@ -101,9 +101,9 @@ var CardContainer = React.createClass({
       this.props.cards.forEach(function(card) {
         var added = false;
         console.log(card.keys);
-        card.keys.forEach(function(key) {
+        card.keys.forEach(function(key) { //potentially switch to .every call (could be a bottle neck down the road)
           console.log("INSIDE HERE");
-          if(key.toLowerCase().indexOf(prop.filterText.toLowerCase()) !== -1 && !added) {
+          if(!added && key.toLowerCase().indexOf(prop.filterText.toLowerCase()) !== -1) {
             rows.push(<Card card={card} index={index_tracker} key={card.name} onTagInput={prop.tagInput} />);
             added = true;
           }
