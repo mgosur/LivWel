@@ -97,11 +97,14 @@ var CardContainer = React.createClass({
   render: function() {
       var rows = [];
       var index_tracker = 0;
+      var prop = this.props;
       this.props.cards.forEach(function(card) {
         var added = false;
+        console.log(card.keys);
         card.keys.forEach(function(key) {
-          if(key.toLowerCase().indexOf(this.props.filterText.toLowerCase()) !== -1 && !added) {
-            rows.push(<Card card={card} index={index_tracker} key={card.name} onTagInput={this.props.tagInput} />);
+          console.log("INSIDE HERE");
+          if(key.toLowerCase().indexOf(prop.filterText.toLowerCase()) !== -1 && !added) {
+            rows.push(<Card card={card} index={index_tracker} key={card.name} onTagInput={prop.tagInput} />);
             added = true;
           }
         })
