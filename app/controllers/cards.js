@@ -21,7 +21,8 @@ router.post('/', function(req, res) {
 		populations_served : req.body.populations_served,
 		specialities : req.body.specialities,
 		media : req.body.media,
-		tags : req.body.tags
+		tags : req.body.tags,
+		keys : req.body.keys
 	}, function(error, card) {
 		if(error)
 			res.send(error)

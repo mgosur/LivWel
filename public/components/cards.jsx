@@ -98,11 +98,13 @@ var CardContainer = React.createClass({
       var rows = [];
       var index_tracker = 0;
       this.props.cards.forEach(function(card) {
-        if(card.name.toLowerCase().indexOf(this.props.filterText.toLowerCase()) === -1) {
-          return;
-        }
-        rows.push(<Card card={card} index={index_tracker} key={card.name} onTagInput={this.props.tagInput} />);
-        //console.log(index_tracker);
+        var added = false;
+        card.keys.forEach(function(key) {
+          if(key.toLowerCase().indexOf(this.props.filterText.toLowerCase()) !== -1 && !added) {
+            rows.push(<Card card={card} index={index_tracker} key={card.name} onTagInput={this.props.tagInput} />);
+            added = true;
+          }
+        })
         index_tracker++;
       }.bind(this));
       return (  
@@ -142,6 +144,7 @@ var MainContainer = React.createClass({
   },
   componentDidMount: function() {
     $.get(this.props.source, function(returnedCards) {
+      console.log(returnedCards);
       if(this.isMounted()) {
         this.setState({
           state_card: returnedCards
