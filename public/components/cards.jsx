@@ -18,21 +18,19 @@ const customStyles = {
     width                 : '95%'
   }
 };
-
 const style = {
-
   sidebar: {
     position : 'absolute', 
     float: 'left',
     width: '20%'
   },
-
   cards: {
     position: 'absolute',
     float: 'right',
     marginLeft: '20%'
   }
 };
+
 
 var Card = React.createClass ({
   getInitialState: function() {
@@ -100,9 +98,7 @@ var CardContainer = React.createClass({
       var prop = this.props;
       this.props.cards.forEach(function(card) {
         var added = false;
-        console.log(card.keys);
         card.keys.forEach(function(key) { //potentially switch to .every call (could be a bottle neck down the road)
-          console.log("INSIDE HERE");
           if(!added && key.toLowerCase().indexOf(prop.filterText.toLowerCase()) !== -1) {
             rows.push(<Card card={card} index={index_tracker} key={card.name} onTagInput={prop.tagInput} />);
             added = true;

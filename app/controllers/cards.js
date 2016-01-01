@@ -11,6 +11,12 @@ router.get('/', function(req, res) {
 	});
 });
 router.post('/', function(req, res) {
+	
+	var keyArray = [req.body.name];
+	if(req.body.tags)
+		keyArray = keyArray.concat(req.body.tags);
+	console.log(keyArray);
+	
 	Cards.create({
 		name : req.body.name,
 		phone_number : req.body.phone_number,
@@ -22,7 +28,7 @@ router.post('/', function(req, res) {
 		specialities : req.body.specialities,
 		media : req.body.media,
 		tags : req.body.tags,
-		keys : req.body.keys
+		keys : keyArray
 	}, function(error, card) {
 		if(error)
 			res.send(error)

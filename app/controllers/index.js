@@ -12,5 +12,7 @@ router.use('/users', require('./users'));
 router.get('/', function(req, res) {
 	res.render('../public/index');
 });
-
+router.get('/form', function(req, res) {
+	res.render('../public/form');
+})
 module.exports = router;
